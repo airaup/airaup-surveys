@@ -1,0 +1,24 @@
+version: '3'
+services:
+  postgresql:
+    image: postgres:latest
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 3306:3306
+    environment:
+      POSTGRES_DB: eraup
+      POSTGRES_USER: eraup
+      POSTGRES_PASSWORD: changeme
+  limesurvey:
+    image: crramirez/limesurvey:latest
+    ports:
+      - 8000:80
+    volumes:
+      - ./limesurvey/config/config.php:/app/application/config/config.php
+    environment:
+      DISABLE_MYSQL: 'yes'
+  adminer:
+    image: adminer
+    ports:
+     - 8080:80
